@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Game</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{
+      --bg:orange; 
+      --accent:#2b8a3e; 
+      --text:#1b1b1b;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background: yellow;
+      color: black;
+      overflow:hidden;
+    }
+
+    /* header */
+    header{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 18px 28px;
+      position:relative;
+      box-shadow:0 6px 20px rgba(0,0,0,0.06);
+    }
+    .title-wrap{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .logo{
+      width:54px;height:54px;
+      border-radius:50%;
+      background:white;
+      border:4px solid black;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      flex-shrink:0;
+    }
+    .logo img{
+      width:100%;height:100%;
+      object-fit:cover;
+    }
+    h1{margin:0;font-size:22px;letter-spacing:0.6px;}
+    .subtitle{font-size:12px;opacity:0.85;margin-top:4px;}
+
+    /* HUD */
+    .hud{
+      position:absolute;
+      right:18px;top:60px;
+      display:flex;gap:12px;align-items:center;
+    }
+    .badge{
+      background:rgba(255,255,255,0.9);
+      color:var(--text);
+      padding:8px 12px;
+      border-radius:10px;
+      font-weight:600;
+      box-shadow:0 3px 10px rgba(0,0,0,0.06);
+    }
+
+    /* game area */
+    #stage{
+      position:relative;
+      width:100%;
+      height:calc(100vh - 82px);
+      overflow:hidden;
+      touch-action:none;
+    }
+    .taco{
+      position:absolute;
+      width:56px;height:56px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:34px;
+      user-select:none;cursor:pointer;
+      transform-origin:center;
+      will-change:transform,top,left;
+      transition:transform 0.08s linear;
+      text-shadow:0 2px 3px rgba(0,0,0,0.2);
+    }
+    .smash{
+      transform:scale(1.35) rotate(-15deg);
+      opacity:0;
+      transition:transform 220ms ease,opacity 220ms ease;
+    }
+
+    /* overlay */
+    .overlay{
+      position:absolute;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,0.45);
+      z-index:999;
+    }
+    .panel{
+      background:white;
+      color:var(--text);
+      padding:26px;
+      border-radius:12px;
+      text-align:center;
+      min-width:260px;
+      box-shadow:0 14px 40px rgba(0,0,0,0.2);
+    }
+    .panel h2{margin:0 0 8px 0}
+    .btn{
+      background:var(--accent);
+      color:white;
+      border:none;
+      padding:10px 16px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:700;
+      margin-top:12px;
+    }
+
+    .tip{
+      position:absolute;
+      left:18px;bottom:16px;
+      background:rgba(255,255,255,0.9);
+      padding:8px 12px;
+      border-radius:10px;
+      font-size:13px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.06);
+    }
+
+    /* Win notification */
+    .win-notification {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px 30px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      z-index: 1000;
+      display: none;
+      animation: popIn 0.5s ease-out;
+    }
+    
+    .win-notification h3 {
+      margin: 0;
+      color: #2b8a3e;
+      font-size: 26px;
+    }
+    
+    .win-notification p {
+      margin: 10px 0 0;
+      font-size: 18px;
+    }
+    
+    @keyframes popIn {
+      0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+      80% { transform: translate(-50%, -50%) scale(1.1); }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title-wrap">
+      <div class="logo">
+        <img src="assets/img/ii.png" alt="logo">
+      </div>
+      <div>
+        <h1>GAME SNACK DWICH 2</h1>
+        <div class="subtitle">Tap tacos fast — levels get harder!</div>
+      </div>
+    </div>
+
+    <div class="hud" aria-hidden="true">
+      <div id="scoreBadge" class="badge">Score: 0</div>
+      <div id="levelBadge" class="badge">Level: 1</div>
+      <div id="livesBadge" class="badge">Lives: 3</div>
+    </div>
+  </header>
+
+  <main id="stage" tabindex="0"></main>
+
+  <div class="overlay" id="overlay">
+    <div class="panel">
+      <h2 id="overTitle">Game Over</h2>
+      <p id="overText">Score: 0 — Level: 1</p>
+      <button class="btn" id="restartBtn">Play Again</button>
+    </div>
+  </div>
+
+  <div class="win-notification" id="winNotification">
+    <h3 id="winTitle">Congratulations!</h3>
+    <p id="winText">You won a 5% discount</p>
+  </div>
+
+  <div class="tip"> 🧖🏽‍♂️ Level 21 = -5% | Level 24 = -10% | Level 27 = -20%</div>
+
+  <!-- Background music -->
+  <audio id="bgMusic" src="Tacos2.mp3"></audio>
+  <!-- Lose sound -->
+  <audio id="loseSound" src="Lose.mp3"></audio>
+  <!-- Win sound -->
+  <audio id="winSound" src="Tacos2.mp3"></audio>
+
+  <script>
+    const stage = document.getElementById('stage');
+    const scoreBadge = document.getElementById('scoreBadge');
+    const levelBadge = document.getElementById('levelBadge');
+    const livesBadge = document.getElementById('livesBadge');
+    const overlay = document.getElementById('overlay');
+    const overText = document.getElementById('overText');
+    const restartBtn = document.getElementById('restartBtn');
+    const winNotification = document.getElementById('winNotification');
+    const winTitle = document.getElementById('winTitle');
+    const winText = document.getElementById('winText');
+
+    let score=0, level=1, lives=3;
+    let spawnInterval=900, tacoFallSpeed=1.6;
+    let spawnTimer=null, tacoId=0, gameRunning=true;
+
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playPop(){
+      const o=audioCtx.createOscillator();
+      const g=audioCtx.createGain();
+      o.type='square';
+      o.frequency.setValueAtTime(880,audioCtx.currentTime);
+      g.gain.setValueAtTime(0.0001,audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.12,audioCtx.currentTime+0.005);
+      g.gain.exponentialRampToValueAtTime(0.0001,audioCtx.currentTime+0.15);
+      o.connect(g);g.connect(audioCtx.destination);
+      o.start();o.stop(audioCtx.currentTime+0.16);
+    }
+
+    function playWinSound() {
+      const winSound = document.getElementById("winSound");
+      winSound.currentTime = 0;
+      winSound.play().catch(() => {});
+    }
+
+    function showWinNotification(discount) {
+      winTitle.textContent = 'Congratulations!';
+      winText.textContent = `You won a ${discount}% discount`;
+      winNotification.style.display = 'block';
+      playWinSound();
+      
+      setTimeout(() => {
+        winNotification.style.display = 'none';
+      }, 3000);
+    }
+
+    function spawnTaco(){
+      if(!gameRunning) return;
+      const t=document.createElement('div');
+      t.className='taco';
+      t.dataset.id=++tacoId;
+      t.dataset.speed=tacoFallSpeed+Math.random()*0.7;
+      const emojis=['🌭','🍕','🥗','🍟','🍔'];
+      t.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+      const stageRect=stage.getBoundingClientRect();
+      const maxLeft=Math.max(stageRect.width-60,10);
+      t.style.left=(10+Math.random()*maxLeft)+'px';
+      t.style.top='-80px';
+      stage.appendChild(t);
+
+      let smashed=false;
+      function step(){
+        if(!stage.contains(t)) return;
+        const top=parseFloat(t.style.top);
+        const newTop=top+parseFloat(t.dataset.speed);
+        t.style.top=newTop+'px';
+        const rot=(newTop/8)%360;
+        t.style.transform=`rotate(${rot}deg)`;
+        const stageH=stage.getBoundingClientRect().height;
+        if(newTop>stageH-60){
+          if(!smashed){
+            loseLife();
+            t.classList.add('smash');
+            setTimeout(()=>t.remove(),250);
+            return;
+          }
+        } else {
+          requestAnimationFrame(step);
+        }
+      }
+      requestAnimationFrame(step);
+
+      t.addEventListener('pointerdown',()=>{
+        if(!gameRunning) return;
+        smashed=true;
+        t.classList.add('smash');
+        if(audioCtx.state==='suspended') audioCtx.resume();
+        playPop();
+        score++;
+        updateHUD();
+        if(score%5===0) levelUp();
+        setTimeout(()=>t.remove(),200);
+      });
+    }
+
+    function updateHUD(){
+      scoreBadge.textContent='Score: '+score;
+      levelBadge.textContent='Level: '+level;
+      livesBadge.textContent='Lives: '+lives;
+    }
+
+    function loseLife(){
+      lives--; updateHUD();
+      if(lives<=0) gameOver();
+    }
+
+    function gameOver(){
+      gameRunning=false; clearInterval(spawnTimer);
+      overlay.style.display='flex';
+      overText.textContent=`Score: ${score} — Level: ${level}`;
+      // Lose sound
+      const loseSound=document.getElementById("loseSound");
+      loseSound.currentTime=0;
+      loseSound.play().catch(()=>{});
+    }
+
+    restartBtn.addEventListener('click',()=>{
+      document.querySelectorAll('.taco').forEach(t=>t.remove());
+      score=0;level=1;lives=3;
+      spawnInterval=900;tacoFallSpeed=1.6;gameRunning=true;
+      overlay.style.display='none';updateHUD();startSpawning();
+    });
+
+    function levelUp(){
+      level++;tacoFallSpeed+=0.35;
+      spawnInterval=Math.max(280,spawnInterval-80);
+      if(gameRunning){clearInterval(spawnTimer);startSpawning();}
+      updateHUD();
+      
+      // Check for special levels
+      if(level === 21) {
+        showWinNotification(5);
+      } else if(level === 24) {
+        showWinNotification(10);
+      } else if(level === 27) {
+        showWinNotification(20);
+      }
+    }
+
+    function startSpawning(){
+      spawnTimer=setInterval(()=>{
+        const count=(Math.random()<Math.min(0.18,level*0.02))?2:1;
+        for(let i=0;i<count;i++){spawnTaco();}
+      },spawnInterval);
+    }
+
+    updateHUD();startSpawning();
+
+    // Play music on first click
+    const music=document.getElementById("bgMusic");
+    document.body.addEventListener("click",()=>{
+      if(music.paused){
+        music.play().catch(()=>{});
+      }
+    });
+  </script>
+</body>
+</html>
