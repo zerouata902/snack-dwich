@@ -2913,4 +2913,33 @@ background:white;
   }
 
 
+.badge-new {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: red;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 6px 10px;
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    animation: pulse 1.5s infinite;
+}
+
+/* تأثير خفيف */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+
+
+.old-price {
+    color:red;
+    font-size: 13px;
+    text-decoration: line-through;
+    margin-top: 2px;
+}
 
