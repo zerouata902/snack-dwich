@@ -201,7 +201,7 @@
     <p id="winText">You won a 5% discount</p>
   </div>
 
-  <div class="tip"> 🧖🏽‍♂️ Level 20 = Good | Level 25 = excellent | Level 28 = -10%</div>
+  <div class="tip"> 🧖🏽‍♂️ Level 10 = ضعيف | Level 20 = متوسط| Level 30 = -10%</div>
 
   <!-- Background music -->
   <audio id="bgMusic" src="Tacos2.mp3"></audio>
@@ -340,11 +340,11 @@
       updateHUD();
       
       // Check for special levels
-      if(level === 20) {
-        showWinNotification(Good);
-      } else if(level === 25) {
-        showWinNotification(excellent);
-      } else if(level === 28) {
+      if(level === 10) {
+        showWinNotification(ضعيف);
+      } else if(level === 20) {
+        showWinNotification(متوسط);
+      } else if(level === 30) {
         showWinNotification(10);
       }
     }
