@@ -1783,6 +1783,8 @@ Your happiness is our recipe for success.</h1>
   transition: opacity 1s ease-out;
 }
 </style>
+
+
 <script>
 let deferredPrompt = null;
 const installBtn = document.getElementById('installBtn');
@@ -1823,32 +1825,17 @@ setTimeout(() => {
   if (banner.style.display !== 'none') {
     banner.style.display = 'none';
   }
-}, 4000);
+}, 2000);
 
 // Event كيتفعل إذا ثبت التطبيق من المتصفح
 window.addEventListener('appinstalled', () => {
   localStorage.setItem('pwaInstalled', 'true');
   banner.style.display = 'none';
 });
-</script>
+                                   </script>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
 
-  const sound = document.getElementById('clickSound');
-  const icons = document.querySelectorAll('.cart-sound');
-
-  icons.forEach(icon => {
-    icon.addEventListener('click', () => {
-      sound.currentTime = 0;
-      sound.play().catch(err =>
-        console.log('Sound blocked:', err)
-      );
-    });
-  });
-
-});
-  </script>
+  
 <script>
     const triggerTabList = document.querySelectorAll('[data-bs-toggle="tab"]')
     triggerTabList.forEach(triggerEl => {
