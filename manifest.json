@@ -1,6 +1,6 @@
 {
   "name": "Snack dwich Application",
-  "short_name": " Dwich",
+  "short_name": " Snack dwich",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#000000",
