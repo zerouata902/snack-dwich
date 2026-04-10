@@ -1,0 +1,21 @@
+{
+  "name": "Snack dwich Application",
+  "short_name": " Dwich",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#0078ff",
+  "description": "Un site qui peut être installé comme application.",
+  "icons": [
+    {
+      "src": "assets/img/K3.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Logo0.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
