@@ -8,12 +8,12 @@
   "description": "Un site qui peut être installé comme application.",
   "icons": [
     {
-      "src": "K3.jpg",
+      "src": "ii.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "K3.jpg",
+      "src": "ii.png",
       "sizes": "512x512",
       "type": "image/png"
     }
