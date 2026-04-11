@@ -197,7 +197,14 @@ Your happiness is our recipe for success.</h1>
 </li>
             
                
+               <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#salade-tab">
+        <img src="assets/img/60.jpg" alt="Salade" style="width:35px; height:35px; margin-right:8px; border-radius:50%;">
+        <h4 class="d-inline">Tiramissu</h4>
+    </a>
+</li>
             
+       
              
         
             
@@ -1204,15 +1211,30 @@ Your happiness is our recipe for success.</h1>
             <div class="item-info">
                 <div class="item-name">Tacos Cordon Bleu</div>
                 <div class="item-price">
-                    <span class="price-amount">35 DH</span>
+                    <span class="price-amount">30 DH</span>
                     <div class="buy-icon">
-                        <i class="fa fa-shopping-cart add-icon" onclick="addToCart('Tacos Cordon Bleu', 35, 'assets/img/Tacos11.png')"></i>
+                        <i class="fa fa-shopping-cart add-icon" onclick="addToCart('Tacos Cordon Bleu', 30, 'assets/img/Tacos11.png')"></i>
                     </div>
                 </div>
             </div>
         </div>
         
-
+  
+        <!-- TACOS MIXTES -->
+        <div class="menu-item">
+            <div class="item-image">
+                <img src="assets/img/Tacos1.jpg" alt="Tacos Mixtes">
+            </div>
+            <div class="item-info">
+                <div class="item-name">Tacos gratiné</div>
+                <div class="item-price">
+                    <span class="price-amount">35 DH</span>
+                    <div class="buy-icon">
+                        <i class="fa fa-shopping-cart add-icon" onclick="addToCart('Tacos gratiné', 35, 'assets/img/Tacos2.jpg')"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
         
     </div>
 </div>
@@ -1251,6 +1273,21 @@ Your happiness is our recipe for success.</h1>
                     <span class="price-amount">17 DH</span>
                     <div class="buy-icon">
                         <i class="fa fa-shopping-cart add-icon" onclick="addToCart('Sandwich Dinde', 17, 'assets/img/sandwich1.png')"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+              <!-- SANDWICH SPECIAL -->
+        <div class="menu-item">
+            <div class="item-image">
+                <img src="assets/img/sandwich33.jpg" alt="Sandwich Special">
+            </div>
+            <div class="item-info">
+                <div class="item-name">Sandwich escalope</div>
+                <div class="item-price">
+                    <span class="price-amount">17 DH</span>
+                    <div class="buy-icon">
+                        <i class="fa fa-shopping-cart add-icon" onclick="addToCart('Sandwich escalope', 17, 'assets/img/sandwich 333.jpg')"></i>
                     </div>
                 </div>
             </div>
@@ -1317,6 +1354,45 @@ Your happiness is our recipe for success.</h1>
 
 
 
+
+<div class="tab-pane" id="tiramissu-tab">
+    <div class="menu-container">
+           
+        <!-- SPECIAL MEGA BURGER -->
+        <div class="menu-item" id="tiramissu-section">
+            <div class="item-image">
+                <img src="assets/img/61.jpg" alt="Special Mega Burger">
+            </div>
+            <div class="item-info">
+                <div class="item-name">Chocolat </div>
+                <div class="item-price">
+                    <span class="price-amount">10 DH</span>
+                    <div class="buy-icon">
+                        <i class="fa fa-shopping-cart add-icon" onclick="addToCart('Tiramissu chocolat', 10, 'assets/img/61.jpg')"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MEGA ESPAGNOL BURGER -->
+        <div class="menu-item">
+            <div class="item-image">
+                <img src="assets/img/62.jpg" alt="Mega Espagnol ">
+            </div>
+            <div class="item-info">
+                <div class="item-name">Caramel</div>
+                <div class="item-price">
+                    <span class="price-amount">10 DH</span>
+                    <div class="buy-icon">
+                        <i class="fa fa-shopping-cart add-icon" onclick="addToCart('tiramissu caramel ', 10, 'assets/img/62.jpg')"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        
+    </div>
+</div>
 
             
         </div><!-- End tab-content -->
@@ -1907,7 +1983,7 @@ const scrollMap = {
     "#sandwich-tab": "#sandwich-section",
     "#pizza-tab": "#pizza-section",
     "#tacoss-tab": "#tacoss-section",
-    "#tiramisu-tab": "#tiramisu-section",
+    "#tiramissu-tab": "#tiramissu-section",
     "#menu-enfant-tab": "#menu-enfant-section"
 };
 
